@@ -1,9 +1,8 @@
 // conroller is a set of action
 
 module.exports.home = function(req,res){
-   return res.render('home',{
-    title:"Home"
-   })
+   return res.render('home',{title:'Coedapp'})
+   
 }
 
 
