@@ -1,12 +1,28 @@
 const User = require('../models/user')
 
 
-module.exports.profile = function(req,res){
-    return res.render('users',{
-        title:"User page",
-        users: ["rekha","jaya","sushma","nirma"]
-    })
-}
+module.exports.profile = function(req, res) {
+  if (req.cookies.user_id) {
+    User.findById(req.cookies.user_id)
+      .then((user) => {
+        if (user) {
+          return res.render('user_profile', {
+            title: 'User Profile',
+            user: user
+          });
+        } else {
+          console.log('User not found');
+          return res.redirect('/users/sign-in');
+        }
+      })
+      .catch((err) => {
+        console.log('Error finding user by id', err);
+        return res.redirect('/users/sign-in');
+      });
+  } else {
+    return res.redirect('/users/sign-in');
+  }
+};
 
 
 // render the sign up page
@@ -58,5 +74,33 @@ module.exports.create = function(req, res) {
 // sign in and create a session
 
 module.exports.createSession = function(req,res){
-    // Todo later 
+
+    // steps to authenticate
+
+    // find the user
+    User.findOne({email:req.body.email})
+    .then((user)=>{
+        // handle user found 
+        if(user){
+             // handle passwords which don't match
+             if(user.password != req.body.password){
+                return res.redirect('back')
+
+             }
+             //handle session creation
+             res.cookie('user_id',user.id)
+             return res.redirect('/users/profile')
+
+    
+        }else{
+            // handle not found
+            return res.redirect('back')
+
+        }
+
+
+    }).catch((err)=>{
+        console.log('error in finding user',err)
+    })
+
 }
