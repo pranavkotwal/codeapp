@@ -58,5 +58,7 @@ module.exports.create = function(req, res) {
 // sign in and create a session
 
 module.exports.createSession = function(req,res){
-    // Todo later 
+    
+    return res.redirect('/');
+    
 }
