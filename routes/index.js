@@ -13,6 +13,9 @@ router.get('/',homeController.home)
 //whenever the pattern of the path is for users it would be forwarded to users route
 router.use('/users',require(`./users`))
 
+// every route action in posts will be mapped to the "/posts router"
+router.use('/posts',require('./posts'))
+
 // for any further routes, acces from here
 // router.use('/routerName', require('./routerFile))
 router.get('/posts',require(`./posts`))

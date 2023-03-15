@@ -1,4 +1,36 @@
 
-        <h1>This is code app / <%= title %>
-        </h1>
+ <h1>This is code app / <%= title %> </h1>
+
+
+ <section id="feed-posts">
+        <h4>Posts</h4>
+
+        <form action="/posts/create" id="new-post-form" method="POST">
+                <textarea name="content" id="" cols="30" rows="3" placeholder="Type here.."></textarea>
+                <input type="submit" value="Post">
+
+
+
+        </form>
+
+
+        <div id="post-list-container">
+                <ul>
+                        <% for( post of posts) { %>
+                        <p>
+                                <li>
+                                        <%= post.content %>
+                                                <br>
+                                                <small>
+                                                        <%= post.user.name %>
+                                                </small>
+                                </li>
+                        </p>
+                        <% } %>
+                </ul>
+        </div>
+
+
+
+ </section>
 
