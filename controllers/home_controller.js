@@ -1,6 +1,6 @@
 // conroller is a set of action
 const Post = require('../models/post')
-const user = require('../models/user')
+const User = require('../models/user')
 const comment = require('../models/comment')
 
 module.exports.home = function(req,res){
@@ -29,11 +29,27 @@ module.exports.home = function(req,res){
    })
    .exec()
    .then((posts)=>{
-      return res.render('home',
+
+      User.find({})
+      .then((users)=>{
+
+          return res.render('home',
       {
          title:"CodeApp|| Home",
-         posts:posts
+         posts:posts,
+         all_users:users
       })
+
+
+
+
+
+      })
+
+
+
+
+     
    })
    .catch((err)=>{
       console.log("Couldn't populate",err)

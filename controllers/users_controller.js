@@ -2,12 +2,32 @@ const User = require('../models/user')
 
 
 module.exports.profile = function(req,res){
-    return res.render('users',{
+  User.findById(req.params.id)
+  .then((user)=>{
+     return res.render('user_profile',{
         title:"User page",
-        users: ["rekha","jaya","sushma","nirma"]
+        profile_user:user
     })
+  }).catch((err)=>{
+    console.log("Unable to render the page",err)
+  })
+   
 }
 
+module.exports.update = function(req,res){
+  if(req.user.id == req.params.id){
+    User.findByIdAndUpdate(req.params.id,{name:req.body.name,email:req.body.email})
+    .then((user)=>{
+      return res.redirect('back')
+
+    })
+    .catch((err)=>{
+      
+      console.log("Couldnt update the field",err)
+      return res.status(401).send('Unauthorized')
+    })
+  }
+}
 
 // render the sign up page
 module.exports.signUp = function(req,res){
