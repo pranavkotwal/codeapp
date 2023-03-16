@@ -1,6 +1,7 @@
 // conroller is a set of action
 const Post = require('../models/post')
 const user = require('../models/user')
+const comment = require('../models/comment')
 
 module.exports.home = function(req,res){
    
@@ -17,7 +18,16 @@ module.exports.home = function(req,res){
 
 
 // populate the user for each post
-   Post.find({}).populate('user').exec()
+   Post.find({})
+   .populate('user')
+   .populate({
+      path:'comments',
+      populate:{
+         path:'user'
+         
+      }
+   })
+   .exec()
    .then((posts)=>{
       return res.render('home',
       {
