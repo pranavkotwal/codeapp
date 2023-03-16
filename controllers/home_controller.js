@@ -3,59 +3,32 @@ const Post = require('../models/post')
 const User = require('../models/user')
 const comment = require('../models/comment')
 
-module.exports.home = function(req,res){
+module.exports.home = async function(req,res){
    
-   // Post.find({})
-   // .then((posts)=>{
-   //    return res.render('home',{
-   //       title:"CodeApp|| Home",
-   //       posts:posts
-   //    })
-      
-   // }).catch((err)=>{
-   //       console.log("Unable to get posts",err)
-   //    })
-
-
+try{
 // populate the user for each post
-   Post.find({})
+   let posts = await Post.find({})
    .populate('user')
    .populate({
       path:'comments',
       populate:{
-         path:'user'
-         
+         path:'user'        
       }
    })
-   .exec()
-   .then((posts)=>{
-
-      User.find({})
-      .then((users)=>{
-
-          return res.render('home',
+   
+     let users= await User.find({})
+      
+      return res.render('home',
       {
          title:"CodeApp|| Home",
          posts:posts,
          all_users:users
       })
-
-
-
-
-
-      })
-
-
-
-
-     
-   })
-   .catch((err)=>{
-      console.log("Couldn't populate",err)
-   })
    
+
+}catch(err){
+   console.log("Couldn't run",err)
+   return;
+   }
 }
-
-
 

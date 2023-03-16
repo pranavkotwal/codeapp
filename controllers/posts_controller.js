@@ -1,24 +1,24 @@
 const Post = require('../models/post')
 const Comment = require('../models/comment')
 
-module.exports.create = function(req,res){
-    Post.create({
-        content : req.body.content,
-        user: req.user._id
+module.exports.create = async function(req,res){
 
+    try{
+        const post = await Post.create({
+            content : req.body.content,
+            user: req.user._id
     })
-    .then((post)=>{
-        return res.redirect('/')
-    })
-    .catch((err)=>{
-       console.log( "error in creating a post" , err)
-    })
+    return res.redirect('/')
+
+    }catch(err){
+        console.log("Couldn't create the post")
+    }
+   
 }
 
-module.exports.destroy = function(req,res){
-    Post.findOne({_id: req.params.id, user: req.user.id})
-    .then((post)=>{
-        console.log(post)
+module.exports.destroy = async function(req,res){
+    const post = await Post.findOne({_id: req.params.id, user: req.user.id}) 
+    try{
         if(post){
             console.log(post.user)
             // .id means converting the object id into string 
@@ -26,19 +26,19 @@ module.exports.destroy = function(req,res){
             console.log(req.params.id)
 
             post.deleteOne();
-
-            Comment.deleteMany({post:req.params.id})
-            .then((message)=>{
-                res.redirect('back')
-            }).catch((err)=>{
-                console.log("couldn't delete",err)
-            });
-        }
+        
+           const comment =  Comment.deleteMany({post:req.params.id})
+            
+           res.redirect('back')
+        } 
         else{
             console.log('inside else')
             res.redirect('back')
         }
-    }).catch((err)=>{
-        console.log("couldn't delete the post",err)
-    });
+
+    }catch(err){
+        console.log("Unable to delete",err)
+    }
+    
+    
 }
