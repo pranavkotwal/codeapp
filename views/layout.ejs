@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/header.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.1/noty.min.js"
+></script>
+    
    
     <%- style %>
 
@@ -27,15 +31,17 @@
     </main>
     <%- include('_footer') %>
     <%- script %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.1/noty.min.js"
-        integrity="sha512-Wz8/IQIW2Hhz+0jQQdRlx8qTo7Qf286+yFGaW3nIQAynq7iOlmkhrKWQFOoLXOp7u5E2Tdda0dx9TyjhUD6jQg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script>
+   
+
+    
+
+    
+        
         
     
 
-        
+    <script>
        <%if(flash.success && flash.success.length >0 ){ %>
             new Noty({
                 theme:'relax',
@@ -56,8 +62,9 @@
                     }).show();
            <% } %>
     
-    </script>
+    </script>   
 
+    
 
 
 

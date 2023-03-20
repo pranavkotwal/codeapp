@@ -7,9 +7,22 @@ module.exports.create = async function(req,res){
         const post = await Post.create({
             content : req.body.content,
             user: req.user._id
-    })
-    req.flash('success','Post published!')
-    return res.redirect('/')
+         })
+
+         if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    post : post
+                },
+                message: 'Post Created!'
+            })
+         }
+
+
+
+
+        req.flash('success','Post published!')
+        return res.redirect('/')
 
     }catch(err){
         req.flash('error',"Couldn't create the post")
@@ -30,6 +43,15 @@ module.exports.destroy = async function(req,res){
             post.deleteOne();
         
            const comment =  Comment.deleteMany({post:req.params.id})
+
+           if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    post_id: req.params.id
+                },
+                message:"Post deleted"
+            })
+           }
            req.flash('success','Post and comments deleted')
             
            res.redirect('back')
