@@ -18,6 +18,7 @@
                 error:function(err){
                     console.log(err.responseText)
                 }
+                
 
 
             })
@@ -43,7 +44,7 @@
                 <div class="post-comments">
                    
                         <form action="/comments/create" method="POST">
-                            <input type="te xt" name="content" placeholder="Type here to comment..">
+                            <input type="text" name="content" placeholder="Type here to comment..">
                             <input type="hidden" name="post" value="${post._id}" required>
                             <input type="submit" value="Add Comment">
 

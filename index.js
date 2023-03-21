@@ -36,6 +36,8 @@ app.set('layout extractScripts',true)
 
 //use static folder
 app.use(express.static('./assets'))
+// make the uploads path available to browser
+app.use('/uploads',express.static(__dirname+'/uploads'))
 
 
 // set the view engine to ejs
