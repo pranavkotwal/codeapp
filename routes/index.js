@@ -16,9 +16,13 @@ router.use('/users',require(`./users`))
 // every route action in posts will be mapped to the "/posts router"
 router.use('/posts',require('./posts'))
 
+router.use('/api',require('./api'))
+
 // for any further routes, acces from here
 // router.use('/routerName', require('./routerFile))
 router.get('/posts',require(`./posts`))
+router.get('/users',require(`./users`))
+
 
 router.use('/comments',require('./comments'))
 
