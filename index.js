@@ -12,7 +12,7 @@ const passportJWT = require('./config/passport-jwt-strategy')
 const MongoStore = require('connect-mongo')
 const flash = require('connect-flash')
 const customMware = require('./config/middleware')
-
+const passportGoogle = require('./config/passport-google-oauth2-strategy')
 // sass
 const sassMiddleware = require('node-sass-middleware')
 

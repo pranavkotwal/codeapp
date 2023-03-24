@@ -11,7 +11,7 @@ let opts = {
 
 }
 passport.use(new JWTstrategy(opts,function(jwt_payload,done){
-    User.findOne({id: jwt_payLoad._id})
+    User.findOne({id: jwt_payload._id})
     .then((user)=>{
 
         if(user){

@@ -11,14 +11,15 @@ module.exports.createSession = async function(req,res){
                 message:"Invalid username or password"
             })
         }
-        return res.json(200,{
+        return res.status(200).json({
             message:"Sign in successful , here is your token , please keep it safe!",
             data:{
-                token: jwt.sign(user.toJSON(),'codeapp',{expiresIn:'10000'})
+                token: jwt.sign(user.toJSON(),'codeapp',{expiresIn:'100000'})
 
             }
-
         })
+
+        
         
     } catch (err) {
         console.log('*******',err)

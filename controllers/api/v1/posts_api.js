@@ -24,7 +24,7 @@ module.exports.index = async function(req,res){
 module.exports.destroy = async function(req,res){
     const post = await Post.findOne({_id: req.params.id}) 
     try{
-        // if(post){
+        if(post.user == req.user.id){
             console.log(post.user)
             // .id means converting the object id into string 
             // console.log("inside if")
@@ -32,20 +32,18 @@ module.exports.destroy = async function(req,res){
 
             post.deleteOne();
         
-           const comment =  Comment.deleteMany({post:req.params.id})
-
-          
-           
-            
+           const comment = await Comment.deleteMany({post:req.params.id})
+ 
            return res.json(200,{
             message:"Post and associated comments deleted succesfully"
-
+           
            })
-        // } 
-        // else{
-        //     req.flash('error','You cannot delete this post!')
-        //     res.redirect('back')
-        // }
+        }else{
+            return res.json(401,{
+                message:"You cannot delete this post!"
+            })
+        }
+       
 
     }catch(err){
         console.log('******',err)
