@@ -22,7 +22,7 @@ router.use('/api',require('./api'))
 // router.use('/routerName', require('./routerFile))
 router.get('/posts',require(`./posts`))
 router.get('/users',require(`./users`))
-
+router.use('.likes',require('./likes'))
 
 router.use('/comments',require('./comments'))
 
